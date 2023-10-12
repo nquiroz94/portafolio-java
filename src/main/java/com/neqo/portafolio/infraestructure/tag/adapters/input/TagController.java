@@ -11,10 +11,19 @@ import java.util.List;
 @RequestMapping("${v1API}/tag")
 public class TagController {
 
+    /**
+     * TODO:
+     * revisar update: pareciera que actualiza pero no lo hace:
+     * ver que hacer con el caso C# en tags.
+     * */
     private ITagService service;
 
     public TagController(ITagService service) {
         this.service = service;
+    }
+    @GetMapping("/id")
+    public Tag get_tag_by_id(@RequestParam String uuid){
+        return this.service.get(uuid);
     }
     @GetMapping()
     public Tag get_tag(@RequestParam String tag_name){
@@ -34,8 +43,8 @@ public class TagController {
         return this.service.update(tag);
     }
     @DeleteMapping
-    public Boolean delete(@RequestBody String uuid){
-        return this.service.delete(uuid);
+    public Boolean delete(@RequestBody Tag tag){
+        return this.service.delete(tag.getUuid());
     }
 
 

@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ITagServiceImpl implements ITagService {
+public class TagServiceImpl implements ITagService {
     private ITagRepository repository;
 
-    public ITagServiceImpl(ITagRepository repository) {
+    public TagServiceImpl(ITagRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public Tag get(String uuid) {
-        return null;
+        return this.repository.get(uuid);
     }
 
     @Override
@@ -26,21 +26,21 @@ public class ITagServiceImpl implements ITagService {
 
     @Override
     public List<Tag> getAll() {
-        return null;
+        return this.repository.getAll();
     }
 
     @Override
-    public Tag create(Tag user) {
-        return null;
+    public Tag create(Tag tag) {
+        return this.repository.create(tag);
     }
 
     @Override
-    public Boolean update(Tag user) {
-        return null;
+    public Tag update(Tag tag) {
+        return tag;
     }
 
     @Override
     public Boolean delete(String uuid) {
-        return null;
+        return this.repository.delete(uuid);
     }
 }

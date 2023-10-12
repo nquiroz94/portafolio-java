@@ -17,26 +17,26 @@ public class ProfileServiceImpl implements IProfileService{
 
     @Override
     public Profile get(String uuid) {
-        return null;
+        return this.repository.get(uuid);
     }
 
     @Override
     public List<Profile> getAll() {
-        return null;
+        return this.repository.getAll();
     }
 
     @Override
-    public Profile create(Profile user) {
-        return null;
+    public Profile create(Profile profile) {
+        return this.repository.create(profile);
     }
 
     @Override
-    public Boolean update(Profile user) {
-        return null;
+    public Profile update(Profile profile) {
+        return this.repository.update(profile);
     }
 
     @Override
     public Boolean delete(String uuid) {
-        return null;
+        return this.repository.delete(uuid);
     }
 }

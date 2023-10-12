@@ -27,4 +27,12 @@ public class Tag {
     public void setTag_description(String tag_description) {
         this.tag_description = tag_description;
     }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "uuid='" + uuid + '\'' +
+                ", tag_description='" + tag_description + '\'' +
+                '}';
+    }
 }

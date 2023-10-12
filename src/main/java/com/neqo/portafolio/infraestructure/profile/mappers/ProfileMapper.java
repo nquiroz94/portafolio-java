@@ -42,6 +42,7 @@ public class ProfileMapper {
         profile.setNames(profile_dao.getName());
         profile.setLastnames(profile.getLastnames());
         profile.setUuid(profile.getUuid());
+        return profile;
     }
 
     public List<Profile> dao_lst_to_domain_lst(Iterable<ProfileDAO> profile_dao_lst) {

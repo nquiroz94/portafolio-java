@@ -29,12 +29,12 @@ public class AccountController {
         return this.account_service.create(account).getUuid();
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Account> get_all_accounts(){
         return this.account_service.getAll();
     }
     @GetMapping
-    public Account get_account(@PathVariable String uuid){
+    public Account get_account(@RequestParam String uuid){
         return this.account_service.get(uuid);
     }
 
