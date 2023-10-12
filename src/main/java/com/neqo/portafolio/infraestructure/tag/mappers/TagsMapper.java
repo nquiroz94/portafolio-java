@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class TagsMapper {
 
-    public List<Tag> dao_lst_to_domain_lst(List<TagDAO> tags) {
+    public List<Tag> dao_lst_to_domain_lst(Iterable<TagDAO> tags) {
         var tags_lst = new ArrayList<Tag>();
         tags.forEach(tag_dao -> {
             var d_tag = new Tag();
@@ -20,7 +20,7 @@ public class TagsMapper {
         return tags_lst;
     }
 
-    public List<TagDAO> domain_lst_to_dao_lst(List<Tag> tags){
+    public List<TagDAO> domain_lst_to_dao_lst(Iterable<Tag> tags){
         var tags_dao = new ArrayList<TagDAO>();
         tags.forEach(tag -> {
             var tag_dao = new TagDAO();
@@ -29,5 +29,19 @@ public class TagsMapper {
             tags_dao.add(tag_dao);
         });
         return tags_dao;
+    }
+
+    public Tag dao_to_domain(TagDAO tag_dao) {
+        var tag = new Tag();
+        tag.setUuid(tag_dao.getUuid());
+        tag.setTag_description(tag_dao.getTag());
+        return tag;
+    }
+
+    public TagDAO domain_to_dao(Tag tag) {
+        var dao = new TagDAO();
+        dao.setTag(tag.getTag_description());
+        dao.setUuid(tag.getUuid());
+        return dao;
     }
 }

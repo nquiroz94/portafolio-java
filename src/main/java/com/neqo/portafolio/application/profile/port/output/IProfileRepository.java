@@ -7,7 +7,7 @@ import java.util.List;
 public interface IProfileRepository {
     Profile get(String uuid);
     List<Profile> getAll();
-    Profile create(Profile account);
-    Profile update(Profile account);
+    Profile create(Profile profile);
+    Profile update(Profile profile);
     Boolean delete(String uuid);
 }

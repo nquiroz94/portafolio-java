@@ -4,6 +4,7 @@ import com.neqo.portafolio.infraestructure.proyect.models.ProyectDAO;
 import com.neqo.portafolio.infraestructure.tag.models.TagDAO;
 import jakarta.persistence.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -77,8 +78,8 @@ public class ProfileDAO {
         this.cellphone = cellphone;
     }
 
-    public String getRrss() {
-        return rrss;
+    public List<String> getRrss() {
+        return Arrays.asList(rrss.split("\\|"));
     }
 
     public void setRrss(String rrss) {

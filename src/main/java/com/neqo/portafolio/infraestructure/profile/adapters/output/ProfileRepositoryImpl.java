@@ -20,27 +20,38 @@ public class ProfileRepositoryImpl implements IProfileRepository {
     @Override
     public Profile get(String uuid) {
         var profile_dao = this.crud_repository.findById(uuid);
+        if(profile_dao.isEmpty())
+            return null;
+        var profile = profile_dao.get();
         return this.mapper.dao_to_domain(profile);
     }
 
     @Override
     public List<Profile> getAll() {
-        return null;
+        var profile_dao_lst = this.crud_repository.findAll();
+
+        return this.mapper.dao_lst_to_domain_lst(profile_dao_lst);
     }
 
     @Override
-    public Profile create(Profile user) {
-        return null;
+    public Profile create(Profile profile) {
+        var prof = this.crud_repository.save(this.mapper.domain_to_dao(profile));
+        return this.mapper.dao_to_domain(prof);
     }
 
     @Override
-    public Profile update(Profile user) {
-        return null;
+    public Profile update(Profile profile) {
+        var prof = this.crud_repository.save(this.mapper.domain_to_dao(profile));
+        return this.mapper.dao_to_domain(prof);
     }
 
     @Override
     public Boolean delete(String uuid) {
-        return null;
+        var profile_dao_op = this.crud_repository.findById(uuid);
+        if(profile_dao_op.isEmpty())
+            return false;
+        this.crud_repository.delete(profile_dao_op.get());
+        return true;
     }
 }
 

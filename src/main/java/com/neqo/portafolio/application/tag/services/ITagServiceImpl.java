@@ -20,6 +20,11 @@ public class ITagServiceImpl implements ITagService {
     }
 
     @Override
+    public Tag getByTagName(String name) {
+        return this.repository.getByTagName(name);
+    }
+
+    @Override
     public List<Tag> getAll() {
         return null;
     }

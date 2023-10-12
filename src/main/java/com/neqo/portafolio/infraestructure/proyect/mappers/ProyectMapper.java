@@ -39,4 +39,16 @@ public class ProyectMapper {
         });
         return proyect_lst_dao;
     }
+
+    public List<Proyect> dao_lst_to_domain_lst(List<ProyectDAO> proyects_dao) {
+        var proyect_lst = new ArrayList<Proyect>();
+        proyects_dao.forEach(proyect_dao -> {
+            var proyect = new Proyect();
+            proyect.setName(proyect_dao.getName());
+            proyect.setTags(this.tags_mapper.dao_lst_to_domain_lst(proyect_dao.getTags()));
+            proyect.setDescription(proyect_dao.getDescription());
+            proyect_lst.add(proyect);
+        });
+        return proyect_lst;
+    }
 }
