@@ -12,7 +12,7 @@ public class ProyectDAO {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "proyect_uuid")
     private String uuid;
-
+    private String profile_uuid;
     @Column(name = "proyect_name")
     private String name;
     @Column(name = "description")
@@ -20,13 +20,21 @@ public class ProyectDAO {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = TagDAO.class)
     private List<TagDAO> tags;
 
-    public ProyectDAO(String uuid, String name, String description, List<TagDAO> tags) {
+    public ProyectDAO(String uuid, String profile_uuid, String name, String description, List<TagDAO> tags) {
         this.uuid = uuid;
+        this.profile_uuid = profile_uuid;
         this.name = name;
         this.description = description;
         this.tags = tags;
     }
 
+    public String getProfile_uuid() {
+        return profile_uuid;
+    }
+
+    public void setProfile_uuid(String profile_uuid) {
+        this.profile_uuid = profile_uuid;
+    }
 
     public ProyectDAO() {
 

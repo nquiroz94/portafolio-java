@@ -5,16 +5,26 @@ import com.neqo.portafolio.domain.tag.entities.Tag;
 import java.util.List;
 
 public class Proyect{
+    private String uuid;
     private String profile_uuid;
     private String name;
     private String description;
     private List<Tag> tags;
 
-    public Proyect(String profile_uuid, String name, String description, List<Tag> tags) {
+    public Proyect(String uuid, String profile_uuid, String name, String description, List<Tag> tags) {
+        this.uuid = uuid;
         this.profile_uuid = profile_uuid;
         this.name = name;
         this.description = description;
         this.tags = tags;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getProfile_uuid() {

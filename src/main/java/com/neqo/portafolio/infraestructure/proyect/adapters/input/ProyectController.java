@@ -16,7 +16,7 @@ public class ProyectController {
     }
 
     @GetMapping
-    public Proyect get_by_uuid(@PathVariable String uuid){
+    public Proyect get_by_uuid(@RequestParam String uuid){
         return this.proyect_service.get(uuid);
     }
     @GetMapping("/all")
@@ -28,11 +28,11 @@ public class ProyectController {
         return this.proyect_service.create(proyect);
     }
     @PutMapping
-    public Proyect update(Proyect proyect){
+    public Proyect update(@RequestBody Proyect proyect){
         return this.proyect_service.update((proyect));
     }
     @DeleteMapping
-    public Boolean delete(String uuid){
+    public Boolean delete(@RequestParam String uuid){
         return this.proyect_service.delete(uuid);
     }
 }

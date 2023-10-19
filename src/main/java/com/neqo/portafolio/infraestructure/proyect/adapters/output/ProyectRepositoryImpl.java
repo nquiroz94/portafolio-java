@@ -47,6 +47,8 @@ public class ProyectRepositoryImpl implements IProyectRepository {
             proyect.setName(proyect_dao.getName());
             proyect.setDescription(proyect_dao.getDescription());
             proyect.setTags(this.tags_mapper.dao_lst_to_domain_lst(proyect_dao.getTags()));
+            proyect.setUuid(proyect_dao.getUuid());
+            proyect.setProfile_uuid(proyect_dao.getProfile_uuid());
             proyect_lst.add(proyect);
         });
 

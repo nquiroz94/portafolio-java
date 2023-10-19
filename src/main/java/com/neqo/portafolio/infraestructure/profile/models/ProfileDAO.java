@@ -19,6 +19,7 @@ public class ProfileDAO {
     private String cellphone;
     private String rrss;
     private String avatar_url;
+    private boolean visible;
     @OneToOne()
     @JoinColumn(name = "account_uuid")
     private AccountDAO account;
@@ -27,16 +28,25 @@ public class ProfileDAO {
     @OneToMany(targetEntity = ProyectDAO.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<ProyectDAO> proyects;
 
-    public ProfileDAO(String uuid, String name, String lastname, String cellphone, String rrss, String avatar_url, AccountDAO account, List<TagDAO> tags, List<ProyectDAO> proyects) {
+    public ProfileDAO(String uuid, String name, String lastname, String cellphone, String rrss, String avatar_url, boolean visible, AccountDAO account, List<TagDAO> tags, List<ProyectDAO> proyects) {
         this.uuid = uuid;
         this.name = name;
         this.lastname = lastname;
         this.cellphone = cellphone;
         this.rrss = rrss;
         this.avatar_url = avatar_url;
+        this.visible = visible;
         this.account = account;
         this.tags = tags;
         this.proyects = proyects;
+    }
+
+    public boolean isvisible() {
+        return visible;
+    }
+
+    public void setIs_visible(boolean is_visible) {
+        this.visible = is_visible;
     }
 
     public AccountDAO getAccount() {

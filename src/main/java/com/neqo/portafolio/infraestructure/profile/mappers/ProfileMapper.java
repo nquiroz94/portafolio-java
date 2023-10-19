@@ -27,6 +27,8 @@ public class ProfileMapper {
     // TODO: crear un endpoint para settear el valor de avatar_url.
     public ProfileDAO domain_to_dao(Profile profile){
         var profile_dao = new ProfileDAO();
+        profile.setVisible(profile_dao.isvisible());
+        profile_dao.setIs_visible(profile.isVisible());
         profile_dao.setAvatar_url(profile.getAvatar_url());
         profile_dao.setCellphone(profile.getCellphone());
         if(profile.getProyects() != null)
@@ -47,6 +49,7 @@ public class ProfileMapper {
     }
     public Profile dao_to_domain(ProfileDAO profile_dao){
         var profile = new Profile();
+        profile.setVisible(profile_dao.isvisible());
         profile.setAccount_id(profile_dao.getAccount().getUuid());
         profile.setAvatar_url(profile_dao.getAvatar_url());
         profile.setCellphone(profile_dao.getCellphone());
@@ -71,6 +74,7 @@ public class ProfileMapper {
         var profile_lst = new ArrayList<Profile>();
         profile_dao_lst.forEach(profile_dao -> {
             var profile = new Profile();
+            profile.setVisible(profile_dao.isvisible());
             profile.setAvatar_url(profile_dao.getAvatar_url());
             profile.setCellphone(profile_dao.getCellphone());
             profile.setProyects(this.proyect_mapper.dao_lst_to_domain_lst(profile_dao.getProyects()));
@@ -87,6 +91,7 @@ public class ProfileMapper {
 
     public ProfileDAO update_profile_to_dao(ProfileDAO profile_dao, Profile profile){
 
+
         profile_dao.setRrss(String.join("|", profile.getRrss()));
         profile_dao.setTags(this.tag_mapper.domain_lst_to_dao_lst(profile.getProfile_tags()));
         profile_dao.setProyects(this.proyect_mapper.domain_lst_to_dao_lst(profile.getProyects()));
@@ -94,6 +99,7 @@ public class ProfileMapper {
         profile_dao.setName(profile.getNames());
         profile_dao.setCellphone(profile.getCellphone());
         profile_dao.setAvatar_url(profile.getAvatar_url());
+        profile_dao.setIs_visible(profile.isVisible());
         return profile_dao;
     }
 }

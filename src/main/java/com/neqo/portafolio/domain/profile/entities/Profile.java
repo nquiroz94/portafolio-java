@@ -15,8 +15,9 @@ public class Profile {
     private List<Tag> profile_tags;
     private List<String> rrss;
     private String avatar_url;
+    private Boolean visible;
 
-    public Profile(String uuid, String account_id, String names, String lastnames, String cellphone, List<Proyect> proyects, List<Tag> profile_tags, List<String> rrss, String avatar_url) {
+    public Profile(String uuid, String account_id, String names, String lastnames, String cellphone, List<Proyect> proyects, List<Tag> profile_tags, List<String> rrss, String avatar_url, Boolean visible) {
         this.uuid = uuid;
         this.account_id = account_id;
         this.names = names;
@@ -26,6 +27,15 @@ public class Profile {
         this.profile_tags = profile_tags;
         this.rrss = rrss;
         this.avatar_url = avatar_url;
+        this.visible = visible;
+    }
+
+    public Boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getAvatar_url() {

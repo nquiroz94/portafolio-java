@@ -36,10 +36,8 @@ public class ProyectServiceImpl implements IProyectService {
     public Proyect create(Proyect proyect) {
         System.out.println(proyect.toString());
         var profile = this.profile_repository.get(proyect.getProfile_uuid());
+        if(profile == null) return null;
 
-        System.out.println(profile.toString());
-        if(profile == null)
-            return null;
         var tags = new ArrayList<Tag>();
         proyect.getTags().forEach(tag -> {
             var db_tag = this.tag_repository.getByTagName(tag.getTag_description());
@@ -51,11 +49,9 @@ public class ProyectServiceImpl implements IProyectService {
 
         proyect.setTags(tags);
 
-        var proyect_db = this.proyect_repository.create(proyect);
-
         var db_proyect = this.proyect_repository.create(proyect);
         var proyects = profile.getProyects();
-        proyects.add(proyect);
+        proyects.add(db_proyect);
         profile.setProyects(proyects);
 
         this.profile_repository.update(profile);
