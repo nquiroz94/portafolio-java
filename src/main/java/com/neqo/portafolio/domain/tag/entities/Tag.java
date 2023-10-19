@@ -1,5 +1,7 @@
 package com.neqo.portafolio.domain.tag.entities;
 
+import java.util.Locale;
+
 public class Tag {
     private String uuid;
     private String tag_description;
@@ -25,7 +27,7 @@ public class Tag {
     }
 
     public void setTag_description(String tag_description) {
-        this.tag_description = tag_description;
+        this.tag_description = tag_description.toLowerCase(Locale.ROOT);
     }
 
     @Override

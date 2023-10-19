@@ -2,6 +2,7 @@ package com.neqo.portafolio.infraestructure.profile.models;
 
 import com.neqo.portafolio.infraestructure.proyect.models.ProyectDAO;
 import com.neqo.portafolio.infraestructure.tag.models.TagDAO;
+import com.neqo.portafolio.infraestructure.user.models.AccountDAO;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
@@ -13,25 +14,37 @@ public class ProfileDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
-    private String account_uuid;
     private String name;
     private String lastname;
     private String cellphone;
-    private String rrss; //las urls iran como un string separado por ";"
+    private String rrss;
     private String avatar_url;
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = TagDAO.class)
+    @OneToOne()
+    @JoinColumn(name = "account_uuid")
+    private AccountDAO account;
+    @OneToMany(targetEntity = TagDAO.class, fetch = FetchType.EAGER)
     private List<TagDAO> tags;
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ProyectDAO.class)
+    @OneToMany(targetEntity = ProyectDAO.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<ProyectDAO> proyects;
 
-    public ProfileDAO(String uuid, String account_uuid, String name, String lastname, String cellphone, List<TagDAO> tags, List<ProyectDAO> proyects) {
+    public ProfileDAO(String uuid, String name, String lastname, String cellphone, String rrss, String avatar_url, AccountDAO account, List<TagDAO> tags, List<ProyectDAO> proyects) {
         this.uuid = uuid;
-        this.account_uuid = account_uuid;
         this.name = name;
         this.lastname = lastname;
         this.cellphone = cellphone;
+        this.rrss = rrss;
+        this.avatar_url = avatar_url;
+        this.account = account;
         this.tags = tags;
         this.proyects = proyects;
+    }
+
+    public AccountDAO getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountDAO account) {
+        this.account = account;
     }
 
     public ProfileDAO() {
@@ -44,14 +57,6 @@ public class ProfileDAO {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getAccount_uuid() {
-        return account_uuid;
-    }
-
-    public void setAccount_uuid(String account_uuid) {
-        this.account_uuid = account_uuid;
     }
 
     public String getName() {
@@ -108,5 +113,19 @@ public class ProfileDAO {
 
     public void setProyects(List<ProyectDAO> proyects) {
         this.proyects = proyects;
+    }
+
+    @Override
+    public String toString() {
+        return "ProfileDAO{" +
+                "uuid='" + uuid + '\'' +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                ", rrss='" + rrss + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", tags=" + tags +
+                ", proyects=" + proyects +
+                '}';
     }
 }

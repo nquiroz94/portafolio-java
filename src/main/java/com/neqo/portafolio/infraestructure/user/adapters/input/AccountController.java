@@ -11,9 +11,7 @@ import java.util.List;
 public class AccountController {
 /*
 * TODO:
-* login
-* logout
-* reset_pwd.
+* AGREGAR IS_VISIBLE:Boolean
 *
 */
     private IAccountService account_service;
@@ -25,8 +23,10 @@ public class AccountController {
 // account
 //
     @PostMapping //return user uuid
-    public String create_account(@RequestBody Account account){
-        return this.account_service.create(account).getUuid();
+    public Account create_account(@RequestBody Account account){
+        System.out.println("////////////////////////////");
+        System.out.println(account.toString());
+        return this.account_service.create(account);
     }
 
     @GetMapping("/all")
@@ -35,7 +35,11 @@ public class AccountController {
     }
     @GetMapping
     public Account get_account(@RequestParam String uuid){
-        return this.account_service.get(uuid);
+        System.out.println("account");
+
+        var acc = this.account_service.get(uuid);
+        System.out.println(acc.toString());
+        return acc;
     }
 
     @PutMapping

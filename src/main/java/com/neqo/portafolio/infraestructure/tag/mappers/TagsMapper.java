@@ -10,6 +10,8 @@ import java.util.List;
 public class TagsMapper {
 
     public List<Tag> dao_lst_to_domain_lst(Iterable<TagDAO> tags) {
+        if(tags == null)
+            return new ArrayList<Tag>();
         var tags_lst = new ArrayList<Tag>();
         tags.forEach(tag_dao -> {
             var d_tag = new Tag();

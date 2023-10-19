@@ -1,7 +1,9 @@
 package com.neqo.portafolio.infraestructure.proyect.adapters.output;
 
+import com.neqo.portafolio.application.profile.port.output.IProfileRepository;
 import com.neqo.portafolio.application.proyect.port.output.IProyectRepository;
 import com.neqo.portafolio.domain.proyect.entities.Proyect;
+import com.neqo.portafolio.infraestructure.profile.mappers.ProfileMapper;
 import com.neqo.portafolio.infraestructure.proyect.crud.IProyectCrudRepository;
 import com.neqo.portafolio.infraestructure.proyect.mappers.ProyectMapper;
 import com.neqo.portafolio.infraestructure.tag.mappers.TagsMapper;
@@ -13,13 +15,17 @@ import java.util.List;
 @Repository
 public class ProyectRepositoryImpl implements IProyectRepository {
     private IProyectCrudRepository crud_repository;
+    private IProfileRepository profile_repo;
     private ProyectMapper mapper;
     private TagsMapper tags_mapper;
+    private ProfileMapper profile_mapper;
 
-    public ProyectRepositoryImpl(IProyectCrudRepository crud_repository, ProyectMapper mapper, TagsMapper tags_mapper) {
+    public ProyectRepositoryImpl(IProyectCrudRepository crud_repository, IProfileRepository profile_repo, ProyectMapper mapper, TagsMapper tags_mapper, ProfileMapper profile_mapper) {
         this.crud_repository = crud_repository;
+        this.profile_repo = profile_repo;
         this.mapper = mapper;
         this.tags_mapper = tags_mapper;
+        this.profile_mapper = profile_mapper;
     }
 
     @Override
@@ -49,13 +55,19 @@ public class ProyectRepositoryImpl implements IProyectRepository {
 
     @Override
     public Proyect create(Proyect proyect) {
-        var proyect_dao = this.crud_repository.save(this.mapper.domain_to_dao(proyect));
-        return this.mapper.dao_to_domain(proyect_dao);
+        var profile = this.profile_repo.get(proyect.getProfile_uuid());
+        var proyect_dao = this.mapper.domain_to_dao(proyect);
+        var proyect_db = this.crud_repository.save(proyect_dao);
+        var domain_proyect = this.mapper.dao_to_domain(proyect_db);
+        domain_proyect.setProfile_uuid(profile.getUuid());
+        return domain_proyect;
     }
 
     @Override
     public Proyect update(Proyect proyect) {
+        System.out.println(proyect);
         var proyect_dao = this.crud_repository.save(this.mapper.domain_to_dao(proyect));
+        System.out.println(proyect_dao.toString());
         return this.mapper.dao_to_domain(proyect_dao);
     }
 

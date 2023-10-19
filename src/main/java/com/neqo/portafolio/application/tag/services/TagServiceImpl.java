@@ -36,7 +36,8 @@ public class TagServiceImpl implements ITagService {
 
     @Override
     public Tag update(Tag tag) {
-        return tag;
+
+        return this.repository.update(tag);
     }
 
     @Override

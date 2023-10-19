@@ -13,7 +13,13 @@ public class ProyectMapper {
 
     private TagsMapper tags_mapper;
 
+    public ProyectMapper(TagsMapper tags_mapper) {
+        this.tags_mapper = tags_mapper;
+    }
+
     public Proyect dao_to_domain(ProyectDAO proyect_dao) {
+        System.out.println("------------------");
+        System.out.println(proyect_dao.toString());
         var proyect = new Proyect();
         proyect.setName(proyect_dao.getName());
         proyect.setTags(this.tags_mapper.dao_lst_to_domain_lst(proyect_dao.getTags()));

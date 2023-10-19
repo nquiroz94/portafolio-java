@@ -19,11 +19,13 @@ public class ProfileRepositoryImpl implements IProfileRepository {
 
     @Override
     public Profile get(String uuid) {
+        System.out.println(uuid);
         var profile_dao = this.crud_repository.findById(uuid);
+
         if(profile_dao.isEmpty())
             return null;
-        var profile = profile_dao.get();
-        return this.mapper.dao_to_domain(profile);
+        System.out.println(profile_dao.get().toString());
+        return this.mapper.dao_to_domain(profile_dao.get());
     }
 
     @Override
@@ -35,13 +37,24 @@ public class ProfileRepositoryImpl implements IProfileRepository {
 
     @Override
     public Profile create(Profile profile) {
+        System.out.println(profile.toString());
         var prof = this.crud_repository.save(this.mapper.domain_to_dao(profile));
+        System.out.println(prof.toString());
         return this.mapper.dao_to_domain(prof);
     }
 
     @Override
     public Profile update(Profile profile) {
-        var prof = this.crud_repository.save(this.mapper.domain_to_dao(profile));
+        System.out.println(profile.toString());
+        var prof_dao = this.crud_repository.findById(profile.getUuid());
+        if(prof_dao.isEmpty())
+            return null;
+        System.out.println("continuando con el update");
+        var updated_profile = this.mapper.update_profile_to_dao(prof_dao.get(), profile);
+        System.out.println(updated_profile.toString());
+        System.out.println("llamando save");
+        var prof = this.crud_repository.save(updated_profile);
+        System.out.println(prof.toString());
         return this.mapper.dao_to_domain(prof);
     }
 

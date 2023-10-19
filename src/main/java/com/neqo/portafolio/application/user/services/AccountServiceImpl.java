@@ -1,5 +1,6 @@
 package com.neqo.portafolio.application.user.services;
 
+import com.neqo.portafolio.application.profile.port.input.IProfileService;
 import com.neqo.portafolio.application.user.ports.input.IAccountService;
 import com.neqo.portafolio.application.user.ports.output.IAccountRepository;
 import com.neqo.portafolio.domain.user.entities.Account;
@@ -10,8 +11,11 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements IAccountService {
     private IAccountRepository repository;
-    public AccountServiceImpl(IAccountRepository repo) {
-        this.repository = repo;
+    private IProfileService profile_service;
+
+    public AccountServiceImpl(IAccountRepository repository, IProfileService profile_service) {
+        this.repository = repository;
+        this.profile_service = profile_service;
     }
 
     @Override

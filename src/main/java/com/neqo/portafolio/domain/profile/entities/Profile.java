@@ -14,8 +14,9 @@ public class Profile {
     private List<Proyect> proyects;
     private List<Tag> profile_tags;
     private List<String> rrss;
+    private String avatar_url;
 
-    public Profile(String uuid, String account_id, String names, String lastnames, String cellphone, List<Proyect> proyects, List<Tag> profile_tags, List<String> rrss) {
+    public Profile(String uuid, String account_id, String names, String lastnames, String cellphone, List<Proyect> proyects, List<Tag> profile_tags, List<String> rrss, String avatar_url) {
         this.uuid = uuid;
         this.account_id = account_id;
         this.names = names;
@@ -24,6 +25,15 @@ public class Profile {
         this.proyects = proyects;
         this.profile_tags = profile_tags;
         this.rrss = rrss;
+        this.avatar_url = avatar_url;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 
     public List<String> getRrss() {
@@ -91,6 +101,20 @@ public class Profile {
 
     public void setProfile_tags(List<Tag> profile_tags) {
         this.profile_tags = profile_tags;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "uuid='" + uuid + '\'' +
+                ", account_id='" + account_id + '\'' +
+                ", names='" + names + '\'' +
+                ", lastnames='" + lastnames + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                ", proyects=" + proyects +
+                ", profile_tags=" + profile_tags +
+                ", rrss=" + rrss +
+                '}';
     }
 }
 

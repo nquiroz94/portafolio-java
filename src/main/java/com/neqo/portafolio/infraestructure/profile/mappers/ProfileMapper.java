@@ -1,9 +1,13 @@
 package com.neqo.portafolio.infraestructure.profile.mappers;
 
 import com.neqo.portafolio.domain.profile.entities.Profile;
+import com.neqo.portafolio.domain.proyect.entities.Proyect;
+import com.neqo.portafolio.domain.tag.entities.Tag;
 import com.neqo.portafolio.infraestructure.profile.models.ProfileDAO;
 import com.neqo.portafolio.infraestructure.proyect.mappers.ProyectMapper;
+import com.neqo.portafolio.infraestructure.proyect.models.ProyectDAO;
 import com.neqo.portafolio.infraestructure.tag.mappers.TagsMapper;
+import com.neqo.portafolio.infraestructure.tag.models.TagDAO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,25 +27,43 @@ public class ProfileMapper {
     // TODO: crear un endpoint para settear el valor de avatar_url.
     public ProfileDAO domain_to_dao(Profile profile){
         var profile_dao = new ProfileDAO();
-        profile_dao.setAccount_uuid(profile.getAccount_id());
+        profile_dao.setAvatar_url(profile.getAvatar_url());
         profile_dao.setCellphone(profile.getCellphone());
-        profile_dao.setProyects(this.proyect_mapper.domain_lst_to_dao_lst(profile.getProyects()));
+        if(profile.getProyects() != null)
+            profile_dao.setProyects(this.proyect_mapper.domain_lst_to_dao_lst(profile.getProyects()));
+        else
+            profile_dao.setProyects(new ArrayList<ProyectDAO>());
         profile_dao.setName(profile.getNames());
         profile_dao.setLastname(profile.getLastnames());
-        profile_dao.setRrss(String.join("|", profile.getRrss()));
-        profile_dao.setTags(this.tag_mapper.domain_lst_to_dao_lst(profile.getProfile_tags()));
+        if(profile.getRrss() != null)
+            profile_dao.setRrss(String.join("|", profile.getRrss()));
+        else
+            profile_dao.setRrss("");
+        if(profile.getProfile_tags() != null)
+            profile_dao.setTags(this.tag_mapper.domain_lst_to_dao_lst(profile.getProfile_tags()));
+        else
+            profile_dao.setTags(new ArrayList<TagDAO>());
         return profile_dao;
     }
     public Profile dao_to_domain(ProfileDAO profile_dao){
         var profile = new Profile();
+        profile.setAccount_id(profile_dao.getAccount().getUuid());
+        profile.setAvatar_url(profile_dao.getAvatar_url());
         profile.setCellphone(profile_dao.getCellphone());
-        profile.setProyects(this.proyect_mapper.dao_lst_to_domain_lst(profile_dao.getProyects()));
+        if(profile_dao.getProyects() != null)
+            profile.setProyects(this.proyect_mapper.dao_lst_to_domain_lst(profile_dao.getProyects()));
+        else
+            profile.setProyects(new ArrayList<Proyect>());
+
         profile.setRrss(profile_dao.getRrss());
-        profile.setProfile_tags(this.tag_mapper.dao_lst_to_domain_lst(profile_dao.getTags()));
-        profile.setAccount_id(profile_dao.getAccount_uuid());
+
+        if(profile_dao.getTags() != null)
+            profile.setProfile_tags(this.tag_mapper.dao_lst_to_domain_lst(profile_dao.getTags()));
+        else
+            profile.setProfile_tags(new ArrayList<Tag>());
         profile.setNames(profile_dao.getName());
-        profile.setLastnames(profile.getLastnames());
-        profile.setUuid(profile.getUuid());
+        profile.setLastnames(profile_dao.getLastname());
+        profile.setUuid(profile_dao.getUuid());
         return profile;
     }
 
@@ -49,16 +71,29 @@ public class ProfileMapper {
         var profile_lst = new ArrayList<Profile>();
         profile_dao_lst.forEach(profile_dao -> {
             var profile = new Profile();
+            profile.setAvatar_url(profile_dao.getAvatar_url());
             profile.setCellphone(profile_dao.getCellphone());
             profile.setProyects(this.proyect_mapper.dao_lst_to_domain_lst(profile_dao.getProyects()));
             profile.setRrss(profile_dao.getRrss());
             profile.setProfile_tags(this.tag_mapper.dao_lst_to_domain_lst(profile_dao.getTags()));
-            profile.setAccount_id(profile_dao.getAccount_uuid());
             profile.setNames(profile_dao.getName());
             profile.setLastnames(profile.getLastnames());
             profile.setUuid(profile.getUuid());
             profile_lst.add(profile);
         });
         return profile_lst;
+    }
+
+
+    public ProfileDAO update_profile_to_dao(ProfileDAO profile_dao, Profile profile){
+
+        profile_dao.setRrss(String.join("|", profile.getRrss()));
+        profile_dao.setTags(this.tag_mapper.domain_lst_to_dao_lst(profile.getProfile_tags()));
+        profile_dao.setProyects(this.proyect_mapper.domain_lst_to_dao_lst(profile.getProyects()));
+        profile_dao.setLastname(profile.getLastnames());
+        profile_dao.setName(profile.getNames());
+        profile_dao.setCellphone(profile.getCellphone());
+        profile_dao.setAvatar_url(profile.getAvatar_url());
+        return profile_dao;
     }
 }

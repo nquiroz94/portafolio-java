@@ -24,11 +24,11 @@ public class ProfileController {
         return this.profile_service.getAll();
     }
     @PostMapping
-    public Profile crete(Profile profile){
+    public Profile crete(@RequestBody Profile profile){
         return this.profile_service.create(profile);
     }
     @PutMapping
-    public Profile update(Profile profile){
+    public Profile update(@RequestBody Profile profile){
         return this.profile_service.update(profile);
     }
     @DeleteMapping

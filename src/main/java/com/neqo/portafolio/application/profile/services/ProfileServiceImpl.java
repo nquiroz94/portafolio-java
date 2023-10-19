@@ -32,6 +32,7 @@ public class ProfileServiceImpl implements IProfileService{
 
     @Override
     public Profile update(Profile profile) {
+        System.out.println(profile.toString());
         return this.repository.update(profile);
     }
 

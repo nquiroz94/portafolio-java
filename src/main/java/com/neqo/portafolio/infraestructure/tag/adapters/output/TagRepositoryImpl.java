@@ -26,7 +26,11 @@ public class TagRepositoryImpl implements ITagRepository {
         return this.mapper.dao_to_domain(tag_dao);
     }
     public Tag getByTagName(String name){
-        return this.mapper.dao_to_domain(this.crud.findByTag(name));
+        System.out.println(name);
+        var tag = this.crud.findByTag(name);
+        if(tag == null)
+            return null;
+        return this.mapper.dao_to_domain(tag);
     }
 
     @Override
@@ -43,6 +47,7 @@ public class TagRepositoryImpl implements ITagRepository {
     @Override
     public Tag update(Tag tag) {
         System.out.println(tag.toString());
+
         var obj = this.crud.save(this.mapper.domain_to_dao(tag));
         System.out.println(obj);
         return this.mapper.dao_to_domain(obj);    }

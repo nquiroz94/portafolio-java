@@ -1,6 +1,7 @@
 package com.neqo.portafolio.infraestructure.user.models;
 
 
+import com.neqo.portafolio.infraestructure.profile.models.ProfileDAO;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,15 +12,26 @@ public class AccountDAO {
     private String uuid;
     private String username;
     private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ProfileDAO profile;
 
 
-    public AccountDAO(String uuid, String username, String email) {
+    public AccountDAO(String uuid, String username, String email, ProfileDAO profile) {
         this.uuid = uuid;
         this.username = username;
         this.email = email;
+        this.profile = profile;
     }
 
     public AccountDAO() {
+    }
+
+    public ProfileDAO getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ProfileDAO profile) {
+        this.profile = profile;
     }
 
     public String getUuid() {
@@ -46,5 +58,13 @@ public class AccountDAO {
         this.email = email;
     }
 
-
+    @Override
+    public String toString() {
+        return "AccountDAO{" +
+                "uuid='" + uuid + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", profile=" + profile +
+                '}';
+    }
 }

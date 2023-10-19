@@ -12,11 +12,12 @@ public class ProyectDAO {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "proyect_uuid")
     private String uuid;
+
     @Column(name = "proyect_name")
     private String name;
     @Column(name = "description")
     private String description;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = TagDAO.class)
     private List<TagDAO> tags;
 
     public ProyectDAO(String uuid, String name, String description, List<TagDAO> tags) {
@@ -25,6 +26,7 @@ public class ProyectDAO {
         this.description = description;
         this.tags = tags;
     }
+
 
     public ProyectDAO() {
 
@@ -60,5 +62,15 @@ public class ProyectDAO {
 
     public void setTags(List<TagDAO> tags) {
         this.tags = tags;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectDAO{" +
+                "uuid='" + uuid + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", tags=" + tags +
+                '}';
     }
 }

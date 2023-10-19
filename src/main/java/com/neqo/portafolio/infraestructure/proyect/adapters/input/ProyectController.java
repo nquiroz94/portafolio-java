@@ -24,7 +24,7 @@ public class ProyectController {
         return this.proyect_service.getAll();
     }
     @PostMapping
-    public Proyect create(Proyect proyect){
+    public Proyect create(@RequestBody Proyect proyect){
         return this.proyect_service.create(proyect);
     }
     @PutMapping
